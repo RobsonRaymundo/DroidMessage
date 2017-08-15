@@ -8,11 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Patterns;
+import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -22,7 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import ray.droid.com.droidmessage.dbase.Persintencia;
 import ray.droid.com.droidmessage.feature.Constantes;
+import ray.droid.com.droidmessage.gdrive.CreateFileActivity;
 
 /**
  * Created by Robson on 02/03/2016.
@@ -151,6 +155,67 @@ public class Methods {
         // SandBox
         return System.getenv("EXTERNAL_STORAGE");
     }
+
+
+    public static void EnviaMsg(Context context) {
+        Intent mIntent = new Intent(context, CreateFileActivity.class);
+        mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        Persintencia persintencia = new Persintencia(context);
+        StringBuilder sb = persintencia.ObterMensagens();
+        mIntent.putExtra(Constantes.MESSAGE, sb.toString());
+
+        context.startActivity(mIntent);
+    }
+
+    public static void ApagarMsg(Context context)
+    {
+        Persintencia persintencia = new Persintencia(context);
+        persintencia.ApagarMensagens();
+    }
+
+
+    public static void EnviaWhatsapp(Context context, String number)
+    {
+        try {
+           /*
+            String whatsAppMessage = "Hello!";
+            Uri uri = Uri.parse("smsto:" + number);
+            Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.setPackage("com.whatsapp");
+            //i.putExtra("sms_body", whatsAppMessage);
+            i.putExtra(Intent.EXTRA_TEXT, whatsAppMessage);//
+            context.startActivity(i);
+            */
+
+/*
+            Intent waIntent = new Intent(Intent.ACTION_SEND);
+            waIntent.setType("text/plain");
+            String text = "testing message";
+            waIntent.setPackage("com.whatsapp");
+            if (waIntent != null) {
+                waIntent.putExtra(Intent.EXTRA_TEXT, text);//
+                waIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(Intent.createChooser(waIntent, text));
+            } else {
+                Toast.makeText(context, "WhatsApp not found", Toast.LENGTH_SHORT)
+                        .show();
+            }
+            */
+
+            Uri uri = Uri.parse("smsto:" + number);
+            Intent i = new Intent(Intent.ACTION_SENDTO, uri);
+            i.putExtra("sms_body", "TESTE");
+            i.setPackage("com.whatsapp");
+            context.startActivity(i);
+        }
+        catch (Exception ex)
+        {
+            Log.d("DroidMessage", ex.getMessage());
+        }
+    }
+
 
 }
 

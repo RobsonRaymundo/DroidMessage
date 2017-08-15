@@ -17,7 +17,7 @@ public class Persintencia extends SQLiteOpenHelper {
     //public static final String BANCO = "/storage/extSdCard/BancoDados/contatosdbase.db3";
     public static final String BANCO = GetPathStorage() + "droidMessage.db3";
 
-    public static final int VERSAO = 1;
+    public static final int VERSAO = 4;
     //
     public static final String TBLMENSAGENS = "tbl_mensagens";
     public static final String TOKEN = "token";
@@ -114,10 +114,12 @@ public class Persintencia extends SQLiteOpenHelper {
         //
         try {
             //
+
+            String[] argumentos = new String[]{String.valueOf(mensagem)};
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM " + TBLMENSAGENS + " WHERE mensagem = ? ");
+            sb.append("SELECT * FROM " + TBLMENSAGENS + " WHERE mensagem = ?");
             //
-            cursor = getWritableDatabase().rawQuery(sb.toString(), null);
+            cursor = getWritableDatabase().rawQuery(sb.toString(), argumentos);
             //
 
             cadastrado = cursor.getCount() > 0;
@@ -147,6 +149,18 @@ public class Persintencia extends SQLiteOpenHelper {
         }
     }
 
+    public void ApagarMensagens()
+    {
+        try {
+            getWritableDatabase().delete(TBLMENSAGENS, null, null);
+        }
+        catch (Exception ex)
+        {
+            Log.d("DroidMessage", ex.getMessage());
+        }
+
+    }
+
     public StringBuilder ObterMensagens() {
         StringBuilder sAux = new StringBuilder();
         //
@@ -164,6 +178,7 @@ public class Persintencia extends SQLiteOpenHelper {
                 sAux.append(cursor.getString(cursor.getColumnIndex(MENSAGEM)));
                 sAux.append("\n");
             }
+
 
 
         } catch (Exception e) {

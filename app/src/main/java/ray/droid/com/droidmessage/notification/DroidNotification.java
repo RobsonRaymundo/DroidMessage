@@ -27,8 +27,15 @@ public class DroidNotification extends DroidBaseNotification {
         Context context = getBaseContext();
 
         if (!msgNotification.isEmpty()) {
-            Persintencia persintencia = new Persintencia(context);
-            persintencia.InserirMensagens(msgNotification);
+
+            if (msgNotification.contains("enviar")) {
+                Methods.EnviaMsg(context);
+            } else if (msgNotification.contains("apagar")) {
+                Methods.ApagarMsg(context);
+            } else {
+                Persintencia persintencia = new Persintencia(context);
+                persintencia.InserirMensagens(msgNotification);
+            }
         }
     }
 
@@ -46,27 +53,31 @@ public class DroidNotification extends DroidBaseNotification {
         sentBroadcast = true;
     }
 
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private String getNotificationKitKat(StatusBarNotification mStatusBarNotification) {
         String pack = mStatusBarNotification.getPackageName();// Package Name
-        Bundle extras = mStatusBarNotification.getNotification().extras;
-        CharSequence tit = extras.getCharSequence(Notification.EXTRA_TITLE); // Title
-        CharSequence desc = extras.getCharSequence(Notification.EXTRA_TEXT); // / Description
         String msg = "";
+        if (pack.contains("com.whatsapp")) {
+            Bundle extras = mStatusBarNotification.getNotification().extras;
+            CharSequence tit = extras.getCharSequence(Notification.EXTRA_TITLE); // Title
+            CharSequence desc = extras.getCharSequence(Notification.EXTRA_TEXT); // / Description
+            try {
+                Bundle bigExtras = mStatusBarNotification.getNotification().extras;
+                CharSequence[] descArray = bigExtras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES);
+                msg = descArray[descArray.length - 1].toString();
 
-        try {
-            Bundle bigExtras = mStatusBarNotification.getNotification().extras;
-            CharSequence[] descArray = bigExtras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES);
-            msg = descArray[descArray.length - 1].toString();
+            } catch (Exception ex) {
 
-        } catch (Exception ex) {
-
+            }
+            if (msg.isEmpty()) {
+                msg = desc.toString();
+            }
+            if (!tit.toString().isEmpty())
+            {
+                msg = tit + ": " + msg;
+            }
         }
-
-        if (msg.isEmpty()) {
-            msg = desc.toString();
-        }
-
         return msg;
     }
 

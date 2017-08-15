@@ -131,7 +131,7 @@ public class CreateFileActivity extends BaseDemoActivity {
 
 
                                 sMimeType = "text/plain";
-                                sMime = "_Msg_";
+                                sMime = "Msg_";
                                 Writer writer = new OutputStreamWriter(outputStream);
                                 try {
                                     String msg = getIntent().getStringExtra(Constantes.MESSAGE);
@@ -143,7 +143,7 @@ public class CreateFileActivity extends BaseDemoActivity {
 
                                 MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                                         .setMimeType(sMimeType).setTitle(
-                                                sMime + Methods.getDateTimeFormated()).build();
+                                                sMime + Methods.getDateTimeFormated() + ".txt").build() ;
 
                                 // create a file on root folder
                                 Drive.DriveApi.getRootFolder(getGoogleApiClient())
