@@ -1,10 +1,12 @@
 package ray.droid.com.droidmessage.activitys;
 
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.service.notification.StatusBarNotification;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +43,13 @@ public class DroidMainActivity extends AppCompatActivity {
         Intent mIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mIntent);
+
+
+
+
+
+
+
         //finish();
 
     //    Methods.EnviaWhatsapp(getBaseContext(), "+5511977178109");

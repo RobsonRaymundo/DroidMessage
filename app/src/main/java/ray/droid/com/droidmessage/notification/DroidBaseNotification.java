@@ -1,28 +1,35 @@
 package ray.droid.com.droidmessage.notification;
 
 import android.annotation.TargetApi;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.support.annotation.IntDef;
 
 /**
  * Created by Robson on 16/02/2016.
  */
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
+
 public class DroidBaseNotification extends NotificationListenerService {
-    public DroidBaseNotification() {
-        super();
-    }
+
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
+        cancelAllNotifications();
         super.onNotificationPosted(sbn);
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
     public void onNotificationPosted(StatusBarNotification sbn, RankingMap rankingMap) {
+        cancelAllNotifications();
         super.onNotificationPosted(sbn, rankingMap);
     }
 
@@ -39,7 +46,10 @@ public class DroidBaseNotification extends NotificationListenerService {
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
+
+
     }
+
 
     @Override
     public void onNotificationRankingUpdate(RankingMap rankingMap) {
