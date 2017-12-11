@@ -20,6 +20,8 @@ import ray.droid.com.droidmessage.feature.Constantes;
 import ray.droid.com.droidmessage.gdrive.CreateFileActivity;
 import ray.droid.com.droidmessage.others.Methods;
 
+import static ray.droid.com.droidmessage.notification.DroidNotification.cancelAllNotification;
+
 
 public class DroidMainActivity extends AppCompatActivity {
 
@@ -39,15 +41,14 @@ public class DroidMainActivity extends AppCompatActivity {
             }
         });
 
+        cancelAllNotification(getApplicationContext());
+
+        NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nMgr.cancelAll();
 
         Intent mIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
         mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(mIntent);
-
-
-
-
-
 
 
         //finish();

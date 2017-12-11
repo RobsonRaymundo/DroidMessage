@@ -18,7 +18,6 @@ public class DroidBaseNotification extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        cancelAllNotifications();
         super.onNotificationPosted(sbn);
     }
 
@@ -29,8 +28,9 @@ public class DroidBaseNotification extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn, RankingMap rankingMap) {
-        cancelAllNotifications();
+
         super.onNotificationPosted(sbn, rankingMap);
+        DroidBaseNotification.this.cancelAllNotifications();
     }
 
     @Override

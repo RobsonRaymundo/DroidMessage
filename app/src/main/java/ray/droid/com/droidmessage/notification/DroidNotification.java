@@ -33,13 +33,9 @@ public class DroidNotification extends DroidBaseNotification {
     CharSequence tit;
 
 
-
-
-
     public void sendNotification(String msg) {
 
         try {
-
 
 
             NotificationCompat.Builder mBuilder =
@@ -62,9 +58,7 @@ public class DroidNotification extends DroidBaseNotification {
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
             mNotificationManager.notify(001, mBuilder.build());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Log.d("DroidMessage", "Erro : " + ex.getMessage());
         }
     }
@@ -92,8 +86,25 @@ public class DroidNotification extends DroidBaseNotification {
                 sendNotification(msgNotification);
             }
 
+            cancelAllNotification(context);
+
+
+
         }
 
+    }
+
+
+    public static void cancelAllNotification(Context ctx) {
+        try {
+            String ns = Context.NOTIFICATION_SERVICE;
+            NotificationManager nMgr = (NotificationManager) ctx.getSystemService(ns);
+            nMgr.cancelAll();
+        }
+        catch (Exception ex)
+        {
+            Log.d("DroidMessage", ex.getMessage());
+        }
     }
 
     private void SendBroadCast(String msgNotification) {
@@ -111,10 +122,11 @@ public class DroidNotification extends DroidBaseNotification {
         String pack = mStatusBarNotification.getPackageName();// Package Name
         String msg = "";
         tit = "";
-        if (pack.contains("com.whatsapp") ) {
+        if (pack.contains("com.whatsapp")) {
             Bundle extras = mStatusBarNotification.getNotification().extras;
             tit = extras.getCharSequence(Notification.EXTRA_TITLE); // Title
             CharSequence desc = extras.getCharSequence(Notification.EXTRA_TEXT); // / Description
+
             try {
                 Bundle bigExtras = mStatusBarNotification.getNotification().extras;
                 CharSequence[] descArray = bigExtras.getCharSequenceArray(Notification.EXTRA_TEXT_LINES);
@@ -123,9 +135,11 @@ public class DroidNotification extends DroidBaseNotification {
             } catch (Exception ex) {
 
             }
+
             if (msg.isEmpty()) {
                 msg = desc.toString();
             }
+
 
         }
         return msg;
