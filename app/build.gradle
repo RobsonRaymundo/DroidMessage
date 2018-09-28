@@ -2,11 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+<<<<<<< HEAD
     buildToolsVersion "26.0.0"
+=======
+    buildToolsVersion "26.0.1"
+>>>>>>> 0304361416a1602b00d47064256474bd034b9515
     defaultConfig {
         applicationId "ray.droid.com.droidmessage"
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
