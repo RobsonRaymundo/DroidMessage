@@ -33,6 +33,14 @@ import ray.droid.com.droidmessage.gdrive.CreateFileActivity;
  */
 public class Methods {
 
+    public static void ShowListener(Context context)
+    {
+        Intent mIntent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+        mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(mIntent);
+    }
+
+
     public static String getDateTimeFormated()
     {
         SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyyMMdd_hhmmss");

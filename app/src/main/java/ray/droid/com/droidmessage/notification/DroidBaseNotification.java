@@ -1,13 +1,9 @@
 package ray.droid.com.droidmessage.notification;
 
-import android.annotation.TargetApi;
-import android.app.Service;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import android.support.annotation.IntDef;
 
 /**
  * Created by Robson on 16/02/2016.
